@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FindMoreCollectibles</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --gold: #c9a84c;
+  --ink: #0e0c0a;
+  --paper: #f8f3eb;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  font-family:'DM Sans', sans-serif;
+  background:var(--ink);
+  color:var(--paper);
+  overflow-x:hidden; /* 🔥 FIXES MOBILE SCROLL */
+}
+
+/* HERO */
+.hero {
+  padding:80px 20px 60px;
+  text-align:center;
+}
+
+.hero h1 {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(2rem, 6vw, 3.5rem); /* 🔥 FIXED SIZE */
+  line-height:1.1;
+}
+
+.hero p {
+  margin-top:12px;
+  color:#aaa;
+  font-size:0.95rem;
+}
+
+/* GRID */
+.section {
+  padding:20px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.collect-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:12px;
+}
+
+/* CARD */
+.collect-card {
+  position:relative;
+  aspect-ratio:3/4;
+  overflow:hidden;
+  border-radius:6px;
+}
+
+.collect-card img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(.85);
+  transition:.4s;
+}
+
+.collect-card:hover img {
+  transform:scale(1.05);
+  filter:brightness(.7);
+}
+
+.card-overlay {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  padding:16px;
+  background:linear-gradient(to top,rgba(0,0,0,.9),transparent);
+}
+
+.card-title {
+  font-family:'Playfair Display', serif;
+  font-size:1.1rem;
+}
+
+.card-desc {
+  font-size:0.8rem;
+  color:#bbb;
+  margin-top:4px;
+}
+
+/* MOBILE TWEAKS */
+@media (max-width:500px){
+  .hero {
+    padding:60px 16px 40px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <h1>FindMoreCollectibles</h1>
+  <p>Real collectibles. Real nostalgia. Real value.</p>
+</section>
+
+<section class="section">
+  <div class="collect-grid" id="collectGrid"></div>
+</section>
+
+<script>
+
+/* 🔥 FIXED + RELIABLE IMAGES */
+const items = [
+  {
+    title:'Vintage Toys',
+    desc:'80s–90s classics that defined childhood.',
+    img:'https://images.unsplash.com/photo-1608889175123-8ee362201f81?w=1200&q=90'
+  },
+  {
+    title:'Sports Cards',
+    desc:'Rookies, legends, and rare pulls.',
+    img:'https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=1200&q=90' /* ✅ FIXED */
+  },
+  {
+    title:'Vintage LEGO',
+    desc:'Classic boxed sets and rare builds.',
+    img:'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=1200&q=90'
+  },
+  {
+    title:'Retro Games',
+    desc:'NES, SNES, Sega era classics.',
+    img:'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&q=90'
+  },
+  {
+    title:'Historic Coins',
+    desc:'Silver dollars and rare finds.',
+    img:'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=1200&q=90'
+  },
+  {
+    title:'Gold & Silver',
+    desc:'Bullion and investment metals.',
+    img:'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1200&q=90'
+  }
+];
+
+function renderCards(){
+  const grid = document.getElementById('collectGrid');
+  grid.innerHTML = items.map(item=>`
+    <div class="collect-card">
+      <img src="${item.img}" alt="${item.title}">
+      <div class="card-overlay">
+        <div class="card-title">${item.title}</div>
+        <div class="card-desc">${item.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+renderCards();
+
+</script>
+
+</body>
+</html>
