@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FindMoreCollectibles</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet"><style>
+:root{
+  --bg:#f6f1e6;
+  --card:#ffffff;
+  --navy:#1c2a44;
+  --brass:#c8a24a;
+  --red:#b23a48;
+  --muted:#666;
+  --line:#e7e0d2;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:Inter, sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+}
+
+header{
+  background:linear-gradient(135deg,var(--navy),#2e3f66);
+  color:white;
+  padding:28px 20px;
+  text-align:center;
+}
+header h1{
+  font-family:"Playfair Display", serif;
+  font-size:2.8rem;
+}
+header p{opacity:0.85;margin-top:6px;}
+
+nav{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  padding:12px;
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:100;
+  border-bottom:1px solid var(--line);
+}
+nav a{
+  text-decoration:none;
+  color:var(--navy);
+  font-weight:600;
+  font-size:0.95rem;
+}
+nav a:hover{color:var(--red);}
+
+.hero{
+  height:72vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  position:relative;
+  background:
+    linear-gradient(rgba(28,42,68,0.65),rgba(28,42,68,0.65)),
+    url('https://images.unsplash.com/photo-1520975922284-8c2c2b4b3a44?auto=format&fit=crop&w=1600&q=80');
+  background-size:cover;
+  background-position:center;
+}
+.hero h2{
+  font-family:"Playfair Display", serif;
+  font-size:3.2rem;
+}
+.hero p{margin-top:10px;font-size:1.2rem;opacity:0.9;}
+.badge{
+  display:inline-block;
+  margin-top:14px;
+  background:var(--brass);
+  color:#111;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:0.85rem;
+}
+
+.section{
+  padding:60px 20px;
+  max-width:1200px;
+  margin:auto;
+}
+.section h2{
+  font-family:"Playfair Display", serif;
+  text-align:center;
+  font-size:2.2rem;
+  margin-bottom:18px;
+}
+
+.tools{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+input,select,button,textarea{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  font-family:inherit;
+}
+button{
+  background:var(--navy);
+  color:white;
+  cursor:pointer;
+}
+button:hover{background:#2e3f66;}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+  transition:0.25s;
+  cursor:pointer;
+}
+.card:hover{transform:translateY(-5px);}
+.card img{width:100%;height:170px;object-fit:cover;}
+.card h3{padding:10px 12px 0;}
+.card p{padding:0 12px 12px;color:var(--muted);font-size:0.85rem;}
+.tag{margin:10px 12px;display:inline-block;font-size:0.75rem;padding:3px 8px;border:1px solid var(--line);border-radius:10px;}
+
+.panel{
+  background:white;
+  border:1px solid var(--line);
+  padding:20px;
+  border-radius:12px;
+  margin-top:20px;
+}
+
+footer{
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:40px 20px;
+  margin-top:60px;
+}
+
+/* Modal */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  align-items:center;
+  justify-content:center;
+}
+.modal-content{
+  background:white;
+  padding:20px;
+  max-width:520px;
+  border-radius:12px;
+}
+
+.fade-in{
+  animation:fade 0.6s ease;
+}
+@keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+</style></head>
+<body><header>
+  <h1>FindMoreCollectibles</h1>
+  <p>Where nostalgia lives — rare finds, Americana, and timeless treasures</p>
+</header><nav>
+  <a href="#market">Marketplace</a>
+  <a href="#estimator">Value Estimator</a>
+  <a href="#submit">Submit Item</a>
+  <a href="#about">About</a>
+</nav><section class="hero">
+  <div>
+    <h2>Rediscover Rare History</h2>
+    <p>From toy boxes to treasure chests — explore what made generations unforgettable.</p>
+    <div class="badge">Vintage • Rare • Americana</div>
+  </div>
+</section><!-- MARKETPLACE --><section class="section" id="market">
+  <h2>Collector Marketplace</h2>  <div class="tools">
+    <input id="search" placeholder="Search collectibles..." onkeyup="filterCards()" />
+    <select id="filter" onchange="filterCards()">
+      <option value="all">All Categories</option>
+      <option value="toys">Toys</option>
+      <option value="cards">Cards</option>
+      <option value="lego">LEGO</option>
+      <option value="games">Games</option>
+      <option value="coins">Coins</option>
+      <option value="metals">Metals</option>
+    </select>
+  </div>  <div class="grid" id="grid"><div class="card fade-in" data-type="toys">
+  <img src="https://images.unsplash.com/photo-1602524816604-0b8c3f3c3b58?auto=format&fit=crop&w=800&q=80" />
+  <span class="tag">Toys</span>
+  <h3>Vintage Action Figures</h3>
+  <p>Estimated value: $25 - $500+</p>
+</div>
+
+<div class="card fade-in" data-type="cards">
+  <img src="https://images.unsplash.com/photo-1612831814632-9c0b1c1b2b7d?auto=format&fit=crop&w=800&q=80" />
+  <span class="tag">Cards</span>
+  <h3>Sports Rookie Cards</h3>
+  <p>Estimated value: $10 - $10,000+</p>
+</div>
+
+<div class="card fade-in" data-type="lego">
+  <img src="https://images.unsplash.com/photo-1594736797933-d0c7f3a9d4c7?auto=format&fit=crop&w=800&q=80" />
+  <span class="tag">LEGO</span>
+  <h3>Classic LEGO Sets</h3>
+  <p>Estimated value: $50 - $2,000+</p>
+</div>
+
+<div class="card fade-in" data-type="games">
+  <img src="https://images.unsplash.com/photo-1605901309584-818e25960a8f?auto=format&fit=crop&w=800&q=80" />
+  <span class="tag">Games</span>
+  <h3>Retro Consoles</h3>
+  <p>Estimated value: $40 - $800+</p>
+</div>
+
+<div class="card fade-in" data-type="coins">
+  <img src="https://images.unsplash.com/photo-1601597111158-2fceff292cdc?auto=format&fit=crop&w=800&q=80" />
+  <span class="tag">Coins</span>
+  <h3>Silver Dollars</h3>
+  <p>Estimated value: $5 - $5,000+</p>
+</div>
+
+<div class="card fade-in" data-type="metals">
+  <img src="https://images.unsplash.com/photo-1610375461246-83df859d1b6f?auto=format&fit=crop&w=800&q=80" />
+  <span class="tag">Metals</span>
+  <h3>Gold & Silver Bars</h3>
+  <p>Estimated value: Market priced</p>
+</div>
+
+  </div>
+</section><!-- VALUE ESTIMATOR --><section class="section" id="estimator">
+  <h2>AI Value Estimator</h2>  <div class="panel">
+    <input id="itemName" placeholder="Enter collectible name" style="width:100%;margin-bottom:10px;" />
+    <select id="condition" style="width:100%;margin-bottom:10px;">
+      <option>Mint</option>
+      <option>Excellent</option>
+      <option>Good</option>
+      <option>Fair</option>
+    </select>
+    <button onclick="estimate()">Estimate Value</button>
+    <p id="result" style="margin-top:10px;font-weight:bold;"></p>
+  </div>
+</section><!-- SUBMIT --><section class="section" id="submit">
+  <h2>Submit a Collectible</h2>
+  <div class="panel">
+    <input placeholder="Your Name" style="width:100%;margin-bottom:10px;" />
+    <input placeholder="Email" style="width:100%;margin-bottom:10px;" />
+    <textarea placeholder="Describe your item" style="width:100%;height:100px;"></textarea>
+    <button>Send Submission</button>
+  </div>
+</section><!-- ABOUT --><section class="section" id="about">
+  <h2>About</h2>
+  <p style="text-align:center;color:var(--muted);max-width:800px;margin:auto;">
+    FindMoreCollectibles is built for collectors, families, and nostalgia lovers who want to preserve and rediscover the pieces of American culture that shaped generations.
+  </p>
+</section><footer>
+  <p>© 2026 FindMoreCollectibles — Nostalgia preserved for the next generation.</p>
+</footer><!-- MODAL --><div class="modal" id="modal">
+  <div class="modal-content">
+    <h2>Collectible Info</h2>
+    <p>More features coming soon.</p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div><script>
+function filterCards(){
+  let input=document.getElementById('search').value.toLowerCase();
+  let filter=document.getElementById('filter').value;
+  let cards=document.querySelectorAll('.card');
+
+  cards.forEach(c=>{
+    let text=c.innerText.toLowerCase();
+    let type=c.dataset.type;
+    let match=text.includes(input);
+    let cat=filter==='all'||type===filter;
+    c.style.display=(match&&cat)?'block':'none';
+  });
+}
+
+function estimate(){
+  let name=document.getElementById('itemName').value;
+  let condition=document.getElementById('condition').value;
+  let base=Math.floor(Math.random()*500)+20;
+  if(condition==='Mint') base*=2;
+  document.getElementById('result').innerText=`Estimated value of "${name}": $${base}`;
+}
+
+function openModal(){document.getElementById('modal').style.display='flex';}
+function closeModal(){document.getElementById('modal').style.display='none';}
+</script></body>
+</html>
